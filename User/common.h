@@ -18,6 +18,17 @@
 
 /*----- Exposed Macros -----------------------------------------------------------------------------------------------*/
 
+extern UART_HandleTypeDef huart2;
+
+#define PRINTF(...)														\
+	do																	\
+	{																	\
+		uint8_t tmpBuff[32U] = {0};										\
+		uint16_t tmpBuffLen = 0U;										\
+		tmpBuffLen = sprintf((char *)tmpBuff, __VA_ARGS__);					\
+		HAL_UART_Transmit(&huart2, tmpBuff, tmpBuffLen, HAL_MAX_DELAY);	\
+	} while (0)
+
 /*----- Exposed Typedef ----------------------------------------------------------------------------------------------*/
 
 /*----- Exposed Functions --------------------------------------------------------------------------------------------*/
